@@ -1,13 +1,13 @@
 # Command-Line Phonebook System in C
 
-### Necesary features:
+## Necesary features:
 * Add contacts
 * Remove contacts
 * Update contacts
 * Search contacts
 
 
-#### ToDo:
+### ToDo:
 
 1. Csv in C
 2. Add contact
@@ -16,5 +16,8 @@
 5. Search contact
 
 
-##### Ideas:
- 
+#### Ideas:
+
+* Need constant outer while loop 
+* Need good input santistation
+* 
