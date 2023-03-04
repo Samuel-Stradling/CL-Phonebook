@@ -1,2 +1,4 @@
-/trash
+!*.c
+!*.md
+!*.csv
 .DS_Store
