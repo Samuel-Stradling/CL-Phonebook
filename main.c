@@ -80,7 +80,7 @@ int main() {
     FILE *file;
     const char* delimiter = ",";
 
-    // int read = read_all(file, delimiter);    
+    //int read = read_all(file, delimiter);    
     // while (read==-1){
     //     read = read_all(file, delimiter);
     // }
