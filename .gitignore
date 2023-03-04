@@ -1,4 +1,2 @@
-!*.c
-!*.gitignore
-!*.md
-!*.csv
+/trash
+.DS_Store
