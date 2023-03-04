@@ -2,10 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 
+// layout of csv: forename,surname,phonenumber <== str
+
 int read_all(FILE *file, const char* delimiter){
     char buffer[1024];
     int row_count = 0;
-    int field_count = 0;
 
     file = fopen("data.csv", "r");
     if (file == NULL) {
@@ -39,16 +40,52 @@ int read_all(FILE *file, const char* delimiter){
 }
 
 
+int search_name(FILE *file, const char* delimiter, char target[]){
+    char buffer[1024];
+    int row_count = 0;
+
+    file = fopen("data.csv", "r");
+    if (file == NULL) {
+        printf("Could not open file, trying again\n");
+
+        fclose(file);
+        return -1;
+    }
+
+
+    while (fgets(buffer, 1024, file)) {
+        row_count++;
+
+        char* field = strtok(buffer, delimiter);
+
+        while (field) {
+            // runs until eol
+            if(strcmp(field, target)==0){
+                    printf(" %s\n", field);
+                    field = strtok(NULL, delimiter);
+            }
+            //gets the next token in the line: next csv record
+            field = strtok(NULL, delimiter);
+
+        }
+    }
+    fclose(file);
+    return 0;
+
+}
+
 
 int main() {
     // creates variable 'file' of type pointer to a FILE
     FILE *file;
     const char* delimiter = ",";
 
-    int read = read_all(file, delimiter);    
-    while (read==-1){
-        read = read_all(file, delimiter);
-    }
+    // int read = read_all(file, delimiter);    
+    // while (read==-1){
+    //     read = read_all(file, delimiter);
+    // }
+
+    search_name(file, delimiter, "doublemaker");
 
 
     return 0;
