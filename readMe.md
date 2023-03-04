@@ -5,11 +5,12 @@
 * Remove contacts
 * Update contacts
 * Search contacts
+* Print all
 
 
 ### ToDo:
 
-1. Csv in C
+1. ~~Csv in C~~
 2. Add contact
 3. Remove contact
 4. Change details
