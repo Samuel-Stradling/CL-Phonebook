@@ -64,15 +64,34 @@ int search_name(FILE *file, const char* delimiter, char target[]){
 
         while (field) {
             // runs until eol
+
+            // concatinate the string linebuffer with the field
             strcat(lineBuffer, field);
+
+            //conactinate the linebuffer with a comma (after each field to separate them)
             strcat(lineBuffer, ",");
             //gets the next token in the line: next csv record
             field = strtok(NULL, delimiter);
 
         }
     }
-    printf("\n\n%s\n", lineBuffer);
     fclose(file);
+
+
+    for(int i=0;lineBuffer[i]!='\0';i++){
+
+        if (lineBuffer[i] == 10){
+            lineBuffer[i] = ';';
+
+        }
+    }
+
+    char *result = strstr(lineBuffer, target);
+    int position = result - lineBuffer;
+    printf("%d\n", position); // gets position of first instance of substring target in lineBuffer
+
+    printf("%s\n", lineBuffer);
+
     return 0;
 }
 
