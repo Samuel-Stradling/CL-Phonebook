@@ -3,3 +3,4 @@
 !*.md
 !*.csv
 .DS_Store
+test.c
