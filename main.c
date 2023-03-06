@@ -41,7 +41,9 @@ int read_all(FILE *file, const char* delimiter){
 
 
 int search_name(FILE *file, const char* delimiter, char target[]){
+
     char buffer[1024];
+    char lineBuffer[1024]={'\0'};
     int row_count = 0;
 
     file = fopen("data.csv", "r");
@@ -52,26 +54,26 @@ int search_name(FILE *file, const char* delimiter, char target[]){
         return -1;
     }
 
-
     while (fgets(buffer, 1024, file)) {
         row_count++;
 
         char* field = strtok(buffer, delimiter);
 
+
+        //while there is a field (data delimited by delimiter)
+
         while (field) {
             // runs until eol
-            if(strcmp(field, target)==0){
-                    printf(" %s\n", field);
-                    field = strtok(NULL, delimiter);
-            }
+            strcat(lineBuffer, field);
+            strcat(lineBuffer, ",");
             //gets the next token in the line: next csv record
             field = strtok(NULL, delimiter);
 
         }
     }
+    printf("\n\n%s\n", lineBuffer);
     fclose(file);
     return 0;
-
 }
 
 
