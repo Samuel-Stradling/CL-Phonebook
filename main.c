@@ -54,6 +54,8 @@ int search_name(FILE *file, const char* delimiter, char target[]){
         return -1;
     }
 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~ADD ALL ELEMENTS TO LINEBUFFER~~~~~~~~~~~~~~~~~~~~~  
+
     while (fgets(buffer, 1024, file)) {
         row_count++;
 
@@ -78,19 +80,63 @@ int search_name(FILE *file, const char* delimiter, char target[]){
     fclose(file);
 
 
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~FORMAT LINE BUFFER~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`
     for(int i=0;lineBuffer[i]!='\0';i++){
 
-        if (lineBuffer[i] == 10){
+        if (lineBuffer[i] == 10){ //if the character value (ascii 10) is present, replace with semicolon
             lineBuffer[i] = ';';
 
         }
     }
 
+    int i = 0;
+    while (i<1024){
+        if (lineBuffer[i] == '\0'){
+            lineBuffer[i-1] = ';';
+            break;
+        }
+        i++;
+    }
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~FIND SECTION OF CSV CONTAINING TARGET~~~~~~~~~~~~~~~~~~~
     char *result = strstr(lineBuffer, target);
-    int position = result - lineBuffer;
-    printf("%d\n", position); // gets position of first instance of substring target in lineBuffer
+    int startTargetPosition = result - lineBuffer;// index of the first letter of the first 
+    //instance of the match with target
+    int startTargetPositionSection; //index of semi colon before
+    int endTargetPositionSection; //index of semi colon after
+
+    for (int i = startTargetPosition; i>=0; --i){
+        if (lineBuffer[i] == ';'){
+            startTargetPositionSection = i+2; // a comma always follows a semicolon, so actually begins 
+            //after the semicolon and after the comma
+            // therefore indicates position of FIRST LETTER
+        } else if (i==0){
+            startTargetPositionSection=0;
+        }
+
+    }
+
+    endTargetPositionSection = startTargetPosition;
+    while (lineBuffer[endTargetPositionSection] != ';'){
+        endTargetPositionSection++;
+    }
+    endTargetPositionSection--; // this indicates the index of the FINAL LETTER
+
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~PRINT ALL DETAILS OF TARGET~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    for (int i = startTargetPositionSection; i<=endTargetPositionSection; i++){
+        printf("%c", lineBuffer[i]);
+    }
+    printf("\n");
 
     printf("%s\n", lineBuffer);
+    printf("index of match: %d\n", startTargetPosition);
+    printf("index of start: %d\n", startTargetPositionSection);
+    printf("index of end: %d\n", endTargetPositionSection);
 
     return 0;
 }
@@ -106,7 +152,7 @@ int main() {
     //     read = read_all(file, delimiter);
     // }
 
-    search_name(file, delimiter, "doublemaker");
+    search_name(file, delimiter, "darkness");
 
 
     return 0;
