@@ -110,6 +110,7 @@ int search_name(FILE *file, const char* delimiter, char target[]){
     for (int i = startTargetPosition; i>=0; --i){
         if (lineBuffer[i] == ';'){
             startTargetPositionSection = i+2; // a comma always follows a semicolon, so actually begins 
+            break;
             //after the semicolon and after the comma
             // therefore indicates position of FIRST LETTER
         } else if (i==0){
@@ -128,15 +129,16 @@ int search_name(FILE *file, const char* delimiter, char target[]){
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~PRINT ALL DETAILS OF TARGET~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+    printf("\n");
     for (int i = startTargetPositionSection; i<=endTargetPositionSection; i++){
         printf("%c", lineBuffer[i]);
     }
     printf("\n");
 
-    printf("%s\n", lineBuffer);
-    printf("index of match: %d\n", startTargetPosition);
-    printf("index of start: %d\n", startTargetPositionSection);
-    printf("index of end: %d\n", endTargetPositionSection);
+    //printf("\n\n%s\n\n", lineBuffer);
+    // printf("index of match: %d\n", startTargetPosition);
+    // printf("index of start: %d\n", startTargetPositionSection);
+    // printf("index of end: %d\n", endTargetPositionSection);
 
     return 0;
 }
