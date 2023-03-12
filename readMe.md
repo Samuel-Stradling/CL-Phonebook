@@ -15,9 +15,9 @@
 	- if duplicate contact, add 1 to end etc
 3. Remove contact
 4. Change details
-5. Search contact
-	- search by phone number
-	- search by surname
+5. ~~Search contact~~
+	- ~~search by phone number~~
+	- ~~search by surname~~
 
 
 #### Ideas:
